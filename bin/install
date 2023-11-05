@@ -30,18 +30,18 @@ install_zig() {
     fail "asdf-zig supports release installs only"
   fi
 
-  local platform="$ASDF_ZIG_OVERRIDE_PLATFORM"
+  local platform="${ASDF_ZIG_OVERRIDE_PLATFORM:-$OSTYPE}"
 
-  case "$OSTYPE" in
+  case "$platform" in
     darwin*) platform="macos" ;;
     freebsd*) platform="freebsd" ;;
     linux*) platform="linux" ;;
     *) fail "Unsupported platform" ;;
   esac
 
-  local architecture="$ASDF_ZIG_OVERRIDE_ARCH"
+  local architecture="${ASDF_ZIG_OVERRIDE_ARCH:-$(uname -m)}"
 
-  case "$(uname -m)" in
+  case "$architecture" in
     aarch64* | arm64) architecture="aarch64" ;;
     armv7*) architecture="armv7a" ;;
     i686*) architecture="i386" ;;
